@@ -9,23 +9,20 @@ ENV DEBIAN_FRONTEND noninteractive
 LABEL dockerfile.version="1.0.0"
 LABEL dockerfile.release-date="2016-11-11"
 LABEL dockerfile.author="nicdalm"
-LABEL zanata.version="3.9.5"
-
-# config locale
-RUN locale-gen en_US.UTF-8
-ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+LABEL zanata.version="4.2.0"
 
 # replace default sh shell with bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # install required packages
 # NOTE: KEEP ALPHANUMERICALLY SORTED
-RUN apt update && apt install -y --no-install-recommends \ 
+RUN apt-get update && apt-get install -y --no-install-recommends \ 
 	apt-transport-https \
 	build-essential \
 	curl \
 	dos2unix \
 	git \
+	locales \
 	maven \
 	nano \
 	openjdk-8-jdk \
@@ -34,6 +31,10 @@ RUN apt update && apt install -y --no-install-recommends \
 	ruby-dev \
 	wget \
 	&& rm -rf /var/lib/apt/lists/*
+
+# config locale
+RUN locale-gen en_US.UTF-8
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
 SHELL ["/bin/bash", "-c"]
 
