@@ -58,5 +58,8 @@ RUN cat /root/.gemrc
 RUN gem update --system
 RUN gem install compass compass-rgbapng sass breakpoint jekyll
 
+// workaround https://github.com/chapmanb/bcbio-nextgen/issues/670
+RUN git config --global url."https://".insteadOf git://
+
 # entrypoint
 CMD ["bash"]
